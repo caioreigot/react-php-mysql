@@ -2,7 +2,7 @@
 A simple chat made with React, PHP and MySQL with GET, POST, and DELETE methods
 
 Requirements to run on your computer:
-* Install LAMP (apt install lamp-server^)
+* Install LAMP or equivalent (apt install lamp-server^)
 * Configure the backend file (backend/index.php) with your database user and your database table
 
 <div align="center">
