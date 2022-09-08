@@ -2,7 +2,10 @@ import React from 'react';
 import axios from 'axios';
 import config from '../../config.json';
 
-import { StyledMessage } from './styles';
+import { 
+  StyledMessage,
+  StyledNickname 
+} from './styles';
 
 function Message({ message }) {
   const deleteMessage = (e, message) => {
@@ -17,6 +20,9 @@ function Message({ message }) {
 
   return(
     <StyledMessage>
+      <StyledNickname nicknameColor={message.nicknameColor}>
+        {message.sender}
+      </StyledNickname>
       <p>{message.content}</p>
       <i onClick={e => deleteMessage(e, message)} 
         className="fa-solid fa-trash"></i>

@@ -1,7 +1,8 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 const StyledMessage = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: left;
   align-items: flex-start;
 
@@ -10,6 +11,7 @@ const StyledMessage = styled.div`
   width: 100%;
   min-height: 65px;
   max-height: 400px;
+  overflow-x: hidden;
   overflow-y: auto;
 
   margin-bottom: 5px;
@@ -18,12 +20,27 @@ const StyledMessage = styled.div`
   border: 1px solid var(--light-blue);
   border-radius: 0 10px 10px 10px;
 
-  p {
-    font-size: 1.2rem;
-    color: var(--white);
-
+  strong {
     width: 100%;
+    min-height: 20px;
+    
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    font-size: 1.2rem;
+    color: var(--light-blue);
+
+    margin-bottom: 10px;
+  }
+
+  p {
+    width: 100%;
+    
+    font-size: 1rem;
     word-wrap: break-word;
+    
+    color: var(--white);
   }
 
   i {
@@ -43,4 +60,11 @@ const StyledMessage = styled.div`
   }
 `;
 
-export { StyledMessage };
+const StyledNickname = styled.strong`
+  color: ${props => props.nicknameColor} !important;
+`;
+
+export { 
+  StyledMessage,
+  StyledNickname
+};

@@ -4,7 +4,7 @@ import getMessages from './getMessages';
 import {
   Message,
   MessagesContainer,
-  SendMessage
+  SendMessage,
 } from './components';
 
 function App() {

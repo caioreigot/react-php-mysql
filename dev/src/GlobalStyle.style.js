@@ -22,6 +22,20 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
   }
 
+  .flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+  }
+
   #root {
     justify-content: start;
     padding: 20px 0;

@@ -6,5 +6,5 @@ Requirements to run on your computer:
 * Configure the backend file (backend/index.php) with your database user and your database table
 
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/62410044/188348474-13ea7a0d-8eff-4b71-a47b-39dbb7fd9a94.png">
+  <img src="https://user-images.githubusercontent.com/62410044/189024006-7fb9fbe6-7932-4fe4-9c78-744d1ed41f57.png">
 </div>

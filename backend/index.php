@@ -3,28 +3,6 @@
   header("Access-Control-Allow-Headers: *");
   header("Access-Control-Allow-Methods: GET, POST, DELETE");
 
-  // Pega o array de dois em dois elementos e os associa, exemplo:
-  // Input: [1, 2, 3, 4]
-  // Output: [{timestamp => 1, content => 2}, {timestamp => 3, content => 4}]
-  function formatResponse($array) {
-    $formattedResponse = array();
-
-    for ($i = 0; $i < count($array); $i += 2) {
-      if ($i === count($array) - 1) return;
-      
-      /* Para criar um objeto com valores, em javascript seria `{key: value}`. 
-      Em PHP é `[key => value]`. */
-      array_push($formattedResponse, 
-        [
-          "timestamp" => $array[$i],
-          "content" => $array[$i + 1]
-        ]
-      );
-    }
-
-    return $formattedResponse;
-  }
-
   function handleGetRequest($conn) {
     $selectAllFromMessagesQuery = "SELECT * FROM messages";
     $result = mysqli_query($conn, $selectAllFromMessagesQuery);
@@ -33,21 +11,34 @@
     $messages = array();
 
     while ($row = mysqli_fetch_assoc($result)) {
-      foreach ($row as $value) { // $row as $field => $value
-        array_push($messages, $value);
-      }
+      array_push($messages, $row);
     }
 
-    $formattedResponse = formatResponse($messages);
-    echo json_encode($formattedResponse);
+    echo json_encode($messages);
   }
 
   function handlePostRequest($conn) {
     $json = json_decode(file_get_contents("php://input"));
+
+    if (empty($json->content)) {
+      http_response_code(406);
+      die();
+    }
     
     mysqli_query($conn,
-      "INSERT INTO messages (timestamp, message) 
-      VALUES (\"{$json->timestamp}\", \"{$json->message}\");"
+      "INSERT INTO messages(
+        timestamp,
+        sender,
+        nicknameColor,
+        content
+      )
+      
+      VALUES(
+        '{$json->timestamp}',
+        '{$json->sender}',
+        '{$json->nicknameColor}',
+        '{$json->content}'
+      );"
     );
     
     http_response_code(200);
@@ -58,8 +49,8 @@
     
     mysqli_query($conn,
       "DELETE FROM messages 
-      WHERE timestamp=\"{$requestJson->timestamp}\" 
-      AND message=\"{$requestJson->content}\""
+        WHERE timestamp='{$requestJson->timestamp}'
+        AND content='{$requestJson->content}'"
     );
 
     http_response_code(200);
@@ -87,8 +78,10 @@
   // Executando a query no db
   mysqli_query($conn, 
     "CREATE TABLE IF NOT EXISTS messages(
-      timestamp VARCHAR(50) PRIMARY KEY,
-      message VARCHAR(800)
+      timestamp VARCHAR(50),
+      sender VARCHAR(50),
+      nicknameColor CHAR(20),
+      content TEXT
     )"
   );
 

@@ -5,5 +5,5 @@ import SendMessage from './SendMessage';
 export {
   Message,
   MessagesContainer,
-  SendMessage
+  SendMessage,
 }
